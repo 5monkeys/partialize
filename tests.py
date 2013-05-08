@@ -6,6 +6,10 @@ from partialize import partialize, ArgumentMissing, ArgumentOverflow, NamedArgum
 def dummy(a, b, kw_a=None, kw_b=True):
     return a, b, kw_a, kw_b
 
+@partialize
+def single_arg_dummy(a, kw_a=None, kw_b=False):
+    return a, kw_a, kw_b
+
 
 class NamedArgumentsTest(unittest.TestCase):
 
@@ -100,6 +104,9 @@ class PartialTest(unittest.TestCase):
         self.assertRaises(ArgumentOverflow, partial_dummy, 'b', 'c')
         x = partial_dummy('b')
         self.assertEqual(x, ('a', 'b', None, True))
+
+        partial_dummy = single_arg_dummy.partial('a')
+        self.assertEqual(partial_dummy(), ('a', None, False))
 
     def test_initial_args(self):
         partial_dummy = dummy.partial('a', 'b')

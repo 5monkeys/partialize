@@ -116,7 +116,7 @@ def partialize(func):
     Arguments and keyword arguments can be modified and extended before the actual call through partial object.
     """
     _argspec = getargspec(func)
-    _func_arg_names = _argspec.args[:len(_argspec.defaults)]
+    _func_arg_names = _argspec.args[:-len(_argspec.defaults)]
     _func_kwarg_defaults = dict(izip(_argspec.args[-len(_argspec.defaults):], _argspec.defaults))
 
     class Partial(object):
