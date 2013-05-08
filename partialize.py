@@ -110,7 +110,7 @@ class KeywordArguments(dict):
         return all(imap(self.is_valid_keyword, names))
 
 
-def partial(func):
+def partialize(func):
     """
     Partial decorator/wrapper that returns a partial func.
     Arguments and keyword arguments can be modified and extended before the actual call through partial object.

@@ -1,8 +1,8 @@
 import unittest
-from partialize import partial, ArgumentMissing, ArgumentOverflow, NamedArguments, KeywordArguments
+from partialize import partialize, ArgumentMissing, ArgumentOverflow, NamedArguments, KeywordArguments
 
 
-@partial
+@partialize
 def dummy(a, b, kw_a=None, kw_b=True):
     return a, b, kw_a, kw_b
 
