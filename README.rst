@@ -1,7 +1,7 @@
 partialize
 ==========
 
-Like python partialize but with change/extend access to args and kwargs.
+Like python :code:`functools.partial` but with change/extend access to args and kwargs.
 
 .. code:: python
 
