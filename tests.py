@@ -1,10 +1,11 @@
 import unittest
-from partialize import partialize, ArgumentMissing, ArgumentOverflow, NamedArguments, KeywordArguments
+from partialize import partialize, ArgumentMissing, ArgumentOverflow, NamedArguments, KeywordArguments, InvalidKeyword
 
 
 @partialize
 def dummy(a, b, kw_a=None, kw_b=True):
     return a, b, kw_a, kw_b
+
 
 @partialize
 def single_arg_dummy(a, kw_a=None, kw_b=False):
@@ -96,7 +97,7 @@ class KeywordArgumentsTest(unittest.TestCase):
         self.assertDictEqual(kwargs, {'kw_a': 'A', 'kw_b': True})
 
 
-class PartialTest(unittest.TestCase):
+class PartializeTest(unittest.TestCase):
 
     def test_initial_arg(self):
         partial_dummy = dummy.partial('a')
@@ -113,6 +114,7 @@ class PartialTest(unittest.TestCase):
         self.assertRaises(ArgumentOverflow, partial_dummy, 'c')
         x = partial_dummy()
         self.assertEqual(x, ('a', 'b', None, True))
+        self.assertRaises(ArgumentOverflow, dummy.partial, 'a', 'b', 'c')
 
     def test_no_initial_args(self):
         partial_dummy = dummy.partial()
@@ -124,6 +126,11 @@ class PartialTest(unittest.TestCase):
         partial_dummy = dummy.partial(kw_a='A')
         x = partial_dummy('a', 'b')
         self.assertEqual(x, ('a', 'b', 'A', True))
+        self.assertRaises(InvalidKeyword, dummy.partial, kw_c='C')
+
+    def test_call_kwargs(self):
+        partial_dummy = dummy.partial('a', 'b')
+        self.assertRaises(InvalidKeyword, partial_dummy, kw_c='C')
 
     def test_overwrite_initial_kwargs(self):
         partial_dummy = dummy.partial(kw_a='A')
@@ -148,6 +155,7 @@ class PartialTest(unittest.TestCase):
         partial_dummy.kw_a = 'A'
         x = partial_dummy()
         self.assertEqual(x, ('a', 'b2', 'A', True))
+        self.assertRaises(TypeError, partial_dummy.__setattr__, 'kw_c', 'C')
 
     def test_get_args(self):
         partial_dummy = dummy.partial('a', kw_a='A')

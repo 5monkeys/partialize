@@ -103,6 +103,11 @@ class KeywordArguments(dict):
                 self.setdefault(key, value)
         self.update(self.initial)
 
+    def copy(self):
+        clone = KeywordArguments(self.defaults)
+        super(KeywordArguments, clone).update(self)
+        return clone
+
     def is_valid_keyword(self, name):
         return not self or name in self
 
@@ -169,9 +174,6 @@ def partialize(func):
                     self.args[name] = value
                 else:
                     self.kwargs[name] = value
-            except IndexError:
-                values = (func.__name__, self.args.max_args, len(self.args) + 1)
-                raise ArgumentOverflow("Partial %s() got too many arguments, expected %i, got %i" % values)
             except KeyError:
                 raise TypeError("Partial %s() got unexpected argument '%s'" % (func.__name__, name))
 
