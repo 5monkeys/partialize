@@ -1,3 +1,5 @@
 *.pyc
 .idea/
-*.egg-info
+*.egg-info/
+.coverage
+.tox/
