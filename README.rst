@@ -6,7 +6,19 @@ Python partial on steroids
 .. image:: https://travis-ci.org/5monkeys/partialize.png?branch=master
     :target: http://travis-ci.org/5monkeys/partialize
 
-Like python :code:`functools.partial` but with change/extend access to args and kwargs.
+Installation
+------------
+
+Install partialize in your python environment
+
+.. code:: sh
+
+    $ pip install partialize
+
+Usage
+-----
+
+Partialize is like python :code:`functools.partial` but with change/extend access to args and kwargs.
 Also a great tool even if no partial is needed but the function takes args/kwargs that often depends on logic.
 
 Easiest used as a decorator
