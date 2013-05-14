@@ -173,3 +173,11 @@ class PartializeTest(unittest.TestCase):
         self.assertRaises(ArgumentMissing, partial_dummy)
         x = partial_dummy('b2', kw_b='B')
         self.assertEqual(x, ('a', 'b2', 'A', 'B'))
+
+
+def main():
+    unittest.main()
+
+
+if __name__ == '__main__':
+    main()
